@@ -7,22 +7,47 @@ import mysql.connector
 from flask import session, redirect, url_for
 import os
 
+"""connection = connector.connect(
+    user='ccmobil',
+    password='mobil_000',
+    host='fpmobilcc.mysql.database.azure.com',
+    port='3306',
+    database='db_merek'
+)"""
+connection = mysql.connector.connect(
+    host='fpmobilcc.mysql.database.azure.com',  # Replace with your Azure MySQL host
+    user='ccmobil',  # Replace with your Azure MySQL username
+    password='mobil_000',  # Replace with your Azure MySQL password
+    database='db_merek',  # Replace with your Azure MySQL database name
+    port='3306'  # Ensure this path is correct
+)
+
+if connection.is_connected():
+    print('Connected to MySQL Database')
+
+def get_db_connection():
+    try:
+        connection = mysql.connector.connect(
+            host=('fpmobilcc.mysql.database.azure.com'),
+            user=('ccmobil'),
+            password=('mobil_000'),
+            database=('db_merek'),
+            port='3306'
+        )
+        return connection
+    except Error as e:
+        print(f"Error: {e}")
+        return None
+    
+
 app = Flask(__name__)
-# Konfigurasi MySQL
-db_config = {
-    user="ccmobil", 
-    password="mobil_000", 
-    host="fpmobilcc.mysql.database.azure.com", 
-    port=3306, 
-    database="db_merek"  # Nama database
-}
+app.secret_key = 'your_secret_key_here'  # Ganti dengan kunci rahasia yang kuat
+
 
 socketio = SocketIO(app)
 
 # Helper untuk koneksi database
-def get_db_connection():
-    conn = mysql.connector.connect(**db_config)
-    return conn
+
 
 # Halaman utama
 @app.route('/')
