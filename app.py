@@ -1,17 +1,20 @@
+from datetime import datetime
+import locale
+from pyexpat.errors import messages
 from flask import Flask, jsonify, render_template, request, redirect, url_for, session, flash
 from flask_socketio import SocketIO, emit
 import mysql.connector
+from flask import session, redirect, url_for
 import os
 
 app = Flask(__name__)
-
 # Konfigurasi MySQL
 db_config = {
-    user="ccmobil",
+    user="ccmobil", 
     password="mobil_000", 
     host="fpmobilcc.mysql.database.azure.com", 
     port=3306, 
-    database="db_merek"
+    database="db_merek"  # Nama database
 }
 
 socketio = SocketIO(app)
