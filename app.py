@@ -4,7 +4,6 @@ import mysql.connector
 import os
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'  # Ganti dengan kunci rahasia yang kuat
 
 # Konfigurasi MySQL
 db_config = {
